@@ -4,11 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-import com.crcp.app.client.bot.stalker.artist.property.DiscordProperties;
+import com.crcp.app.client.bot.stalker.artist.property.DiscordProps;
 
 @SpringBootApplication
 @EnableConfigurationProperties({
-	DiscordProperties.class
+	DiscordProps.class
 })
 public final class App {
 
