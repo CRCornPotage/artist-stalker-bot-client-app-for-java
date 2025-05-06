@@ -8,6 +8,7 @@ import com.crcp.app.client.bot.stalker.artist.constant.PropsConst;
 import com.crcp.app.client.bot.stalker.artist.framework.base.BaseOnReadyEventHandler;
 import com.crcp.app.client.bot.stalker.artist.framework.base.BaseSlashCommand;
 import com.crcp.app.client.bot.stalker.artist.framework.base.BaseSubcommand;
+import com.crcp.app.client.bot.stalker.artist.framework.base.BaseSubcommandGroup;
 import com.crcp.app.client.bot.stalker.artist.property.SpringProps;
 
 import net.dv8tion.jda.api.JDA;
@@ -15,6 +16,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
+import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
 
 @Component
 public class SlashCommandRegister extends BaseOnReadyEventHandler {
@@ -66,21 +68,51 @@ public class SlashCommandRegister extends BaseOnReadyEventHandler {
 			BaseSlashCommand slashCommand
 	) {
 		final var slashCommandData = slashCommand.getSlashCommandData();
+		if (slashCommand.hasOptions()) {
+			slashCommandData.addOptions(slashCommand.getOptions());
+			return slashCommandData;
+		}
+		
 		if (slashCommand.hasSubCommand()) {
 			slashCommandData.addSubcommands(
 					slashCommand
-							.getSubCommands()
+							.getSubcommands()
 							.stream()
-							.map(this::getSubCommandData)
+							.map(this::getSubcommandData)
 							.toList()
 			);
-		} else if (slashCommand.hasOptions()) {
-			slashCommandData.addOptions(slashCommand.getOptions());
 		}
+		
+		if (slashCommand.hasSubCommandGroup()) {
+			slashCommandData.addSubcommandGroups(
+					slashCommand
+							.getSubcommandGroups()
+							.stream()
+							.map(this::getSubcommandGroupData)
+							.toList()
+			);
+		}
+
 		return slashCommandData;
 	}
 	
-	private SubcommandData getSubCommandData(
+	private SubcommandGroupData getSubcommandGroupData(
+			BaseSubcommandGroup subcommandGroup
+	) {
+		final var subCommandGroupData = subcommandGroup.getSubcommandGroupData();
+		if (subcommandGroup.hasSubcommand()) {
+			subCommandGroupData.addSubcommands(
+					subcommandGroup
+							.getSubcommands()
+							.stream()
+							.map(this::getSubcommandData)
+							.toList()
+			);
+		}
+		return subCommandGroupData;
+	}
+	
+	private SubcommandData getSubcommandData(
 			BaseSubcommand subCommand
 	) {
 		final var subCommandData = subCommand.getSubcommandData();

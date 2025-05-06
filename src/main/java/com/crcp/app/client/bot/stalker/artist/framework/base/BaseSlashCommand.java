@@ -18,10 +18,10 @@ public abstract class BaseSlashCommand {
 	private final SlashCommandData slashCommandData;
 	
 	@Getter
-	private final List<BaseSubcommand> subCommands;
+	private final List<BaseSubcommand> subcommands;
 	
 	@Getter
-	private final List<BaseSubcommandGroup> subCommandGroups;
+	private final List<BaseSubcommandGroup> subcommandGroups;
 	
 	@Getter
 	private final List<OptionData> options;
@@ -39,12 +39,12 @@ public abstract class BaseSlashCommand {
 	
 	protected BaseSlashCommand(
 			SlashCommandData slashCommandData,
-			SubcommandsHolder subCommandsHolder,
+			SubcommandsHolder subcommandsHolder,
 			SubcommandGroupsHolder subcommandGroupsHolder
 	) {
 		this(
 				slashCommandData, 
-				Optional.of(subCommandsHolder), 
+				Optional.of(subcommandsHolder), 
 				Optional.of(subcommandGroupsHolder),  
 				Optional.empty()
 		);
@@ -65,7 +65,11 @@ public abstract class BaseSlashCommand {
 	public void execute(SlashCommandInteraction interaction) {}
 	
 	public final boolean hasSubCommand() {
-		return !this.subCommands.isEmpty();
+		return !this.subcommands.isEmpty();
+	}
+	
+	public final boolean hasSubCommandGroup() {
+		return !this.subcommandGroups.isEmpty();
 	}
 	
 	public final boolean hasOptions() {
@@ -74,7 +78,7 @@ public abstract class BaseSlashCommand {
 	
 	protected List<Predicate<CommandInteraction>> createMustExecuteConditions() {
 		return List.of(
-			    i -> this.subCommands.isEmpty(),
+			    i -> this.subcommands.isEmpty(),
 			    i -> Strings.isEmpty(i.getSubcommandName())
 		);
 	}
@@ -86,19 +90,19 @@ public abstract class BaseSlashCommand {
 			Optional<OptionsHolder> optionHolder
 	) {
 		this.slashCommandData = slashCommandData;
-		this.subCommands = subCommandsHolder
+		this.subcommands = subCommandsHolder
 				.orElse(new SubcommandsHolder(List.of()))
-				.subCommands;
-		this.subCommandGroups = subcommandGroupsHolder
+				.subcommands;
+		this.subcommandGroups = subcommandGroupsHolder
 				.orElse(new SubcommandGroupsHolder(List.of()))
-				.subCommandGroups;
+				.subcommandGroups;
 		this.options = optionHolder
 				.orElse(new OptionsHolder(List.of()))
 				.options;
 	}
 	
-	protected record SubcommandsHolder(List<BaseSubcommand> subCommands) {}
-	protected record SubcommandGroupsHolder(List<BaseSubcommandGroup> subCommandGroups) {}
+	protected record SubcommandsHolder(List<BaseSubcommand> subcommands) {}
+	protected record SubcommandGroupsHolder(List<BaseSubcommandGroup> subcommandGroups) {}
 	protected record OptionsHolder(List<OptionData> options) {}
 	
 }

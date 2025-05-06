@@ -11,14 +11,18 @@ public abstract class BaseSubcommandGroup {
 	private final SubcommandGroupData subcommandGroupData;
 	
 	@Getter
-	private final List<BaseSubcommand> subCommands;
+	private final List<BaseSubcommand> subcommands;
 
 	protected BaseSubcommandGroup(
 			SubcommandGroupData subcommandGroupData, 
-			List<BaseSubcommand> subCommands
+			List<BaseSubcommand> subcommands
 	) {
 		this.subcommandGroupData = subcommandGroupData;
-		this.subCommands = subCommands;
+		this.subcommands = subcommands;
+	}
+	
+	public final boolean hasSubcommand() {
+		return !this.subcommands.isEmpty();
 	}
 	
 }

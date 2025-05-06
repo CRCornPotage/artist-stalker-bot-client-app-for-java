@@ -61,7 +61,7 @@ public class CommandDispatcher {
 			SlashCommandInteraction interaction,
 			BaseSlashCommand slashCommand
 	) {
-		return slashCommand.getSubCommandGroups()
+		return slashCommand.getSubcommandGroups()
 				.stream()
 				.filter(
 						subCommandGroup -> Objects
@@ -79,7 +79,7 @@ public class CommandDispatcher {
 			SlashCommandInteraction interaction, 
 			BaseSubcommandGroup subcommandGroup
 	) {
-		return subcommandGroup.getSubCommands()
+		return subcommandGroup.getSubcommands()
 				.stream()
 				.filter(
 						subCommand -> Objects
@@ -97,7 +97,7 @@ public class CommandDispatcher {
 			SlashCommandInteraction interaction, 
 			BaseSlashCommand slashCommand
 	) {
-		return slashCommand.getSubCommands()
+		return slashCommand.getSubcommands()
 				.stream()
 				.filter(
 						subCommand -> Objects
