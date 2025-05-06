@@ -1,4 +1,4 @@
-package com.crcp.app.client.bot.stalker.artist.framework;
+package com.crcp.app.client.bot.stalker.artist.framework.event.ready;
 
 import java.util.List;
 
