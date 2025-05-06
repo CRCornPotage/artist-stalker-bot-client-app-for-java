@@ -18,7 +18,7 @@ public abstract class BaseSlashCommand {
 	private final SlashCommandData slashCommandData;
 	
 	@Getter
-	private final List<BaseSubCommand> subCommands;
+	private final List<BaseSubcommand> subCommands;
 	
 	@Getter
 	private final List<OptionData> options;
@@ -74,7 +74,7 @@ public abstract class BaseSlashCommand {
 				.options;
 	}
 	
-	protected record SubCommandsHolder(List<BaseSubCommand> subCommands) {}
+	protected record SubCommandsHolder(List<BaseSubcommand> subCommands) {}
 	protected record OptionsHolder(List<OptionData> options) {}
 	
 }

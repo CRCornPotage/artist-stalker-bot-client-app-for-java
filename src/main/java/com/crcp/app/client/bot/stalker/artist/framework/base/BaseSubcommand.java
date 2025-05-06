@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 
-public abstract class BaseSubCommand {
+public abstract class BaseSubcommand {
 	
 	@Getter 
 	private final SubcommandData subcommandData;
@@ -15,7 +15,7 @@ public abstract class BaseSubCommand {
 	@Getter 
 	private final List<OptionData> options;
 
-	protected BaseSubCommand(
+	protected BaseSubcommand(
 			SubcommandData subcommandData,
 			List<OptionData> options
 	) {

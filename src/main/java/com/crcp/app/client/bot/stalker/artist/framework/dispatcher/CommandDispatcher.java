@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import com.crcp.app.client.bot.stalker.artist.framework.base.BaseSlashCommand;
-import com.crcp.app.client.bot.stalker.artist.framework.base.BaseSubCommand;
+import com.crcp.app.client.bot.stalker.artist.framework.base.BaseSubcommand;
 
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 
@@ -56,7 +56,7 @@ public class CommandDispatcher {
 				.findFirst();
 	}
 	
-	private Optional<BaseSubCommand> findSubCommand(
+	private Optional<BaseSubcommand> findSubCommand(
 			SlashCommandInteraction interaction, 
 			BaseSlashCommand slashCommand
 	) {

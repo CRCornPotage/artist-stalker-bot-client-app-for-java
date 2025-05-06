@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.crcp.app.client.bot.stalker.artist.constant.PropsConst;
 import com.crcp.app.client.bot.stalker.artist.framework.base.BaseOnReadyEventHandler;
 import com.crcp.app.client.bot.stalker.artist.framework.base.BaseSlashCommand;
-import com.crcp.app.client.bot.stalker.artist.framework.base.BaseSubCommand;
+import com.crcp.app.client.bot.stalker.artist.framework.base.BaseSubcommand;
 import com.crcp.app.client.bot.stalker.artist.property.SpringProps;
 
 import net.dv8tion.jda.api.JDA;
@@ -81,7 +81,7 @@ public class SlashCommandRegister extends BaseOnReadyEventHandler {
 	}
 	
 	private SubcommandData getSubCommandData(
-			BaseSubCommand subCommand
+			BaseSubcommand subCommand
 	) {
 		final var subCommandData = subCommand.getSubcommandData();
 		if (subCommand.hasOptions()) {
