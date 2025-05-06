@@ -99,9 +99,9 @@ public class SlashCommandRegister extends BaseOnReadyEventHandler {
 	private SubcommandGroupData getSubcommandGroupData(
 			BaseSubcommandGroup subcommandGroup
 	) {
-		final var subCommandGroupData = subcommandGroup.getSubcommandGroupData();
+		final var subcommandGroupData = subcommandGroup.getSubcommandGroupData();
 		if (subcommandGroup.hasSubcommand()) {
-			subCommandGroupData.addSubcommands(
+			subcommandGroupData.addSubcommands(
 					subcommandGroup
 							.getSubcommands()
 							.stream()
@@ -109,17 +109,17 @@ public class SlashCommandRegister extends BaseOnReadyEventHandler {
 							.toList()
 			);
 		}
-		return subCommandGroupData;
+		return subcommandGroupData;
 	}
 	
 	private SubcommandData getSubcommandData(
-			BaseSubcommand subCommand
+			BaseSubcommand subcommand
 	) {
-		final var subCommandData = subCommand.getSubcommandData();
-		if (subCommand.hasOptions()) {
-			subCommandData.addOptions(subCommand.getOptions());
+		final var subcommandData = subcommand.getSubcommandData();
+		if (subcommand.hasOptions()) {
+			subcommandData.addOptions(subcommand.getOptions());
 		}
-		return subCommandData;
+		return subcommandData;
 	}
 	
 }

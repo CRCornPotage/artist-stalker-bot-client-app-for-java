@@ -85,12 +85,12 @@ public abstract class BaseSlashCommand {
 	
 	private BaseSlashCommand(
 			SlashCommandData slashCommandData,
-			Optional<SubcommandsHolder> subCommandsHolder,
+			Optional<SubcommandsHolder> subcommandsHolder,
 			Optional<SubcommandGroupsHolder> subcommandGroupsHolder,
 			Optional<OptionsHolder> optionHolder
 	) {
 		this.slashCommandData = slashCommandData;
-		this.subcommands = subCommandsHolder
+		this.subcommands = subcommandsHolder
 				.orElse(new SubcommandsHolder(List.of()))
 				.subcommands;
 		this.subcommandGroups = subcommandGroupsHolder
