@@ -21,26 +21,45 @@ public abstract class BaseSlashCommand {
 	private final List<BaseSubcommand> subCommands;
 	
 	@Getter
+	private final List<BaseSubcommandGroup> subCommandGroups;
+	
+	@Getter
 	private final List<OptionData> options;
 	
 	protected BaseSlashCommand(
 			SlashCommandData slashCommandData
 	) {
-		this(slashCommandData, Optional.empty(), Optional.empty());
+		this(
+				slashCommandData, 
+				Optional.empty(), 
+				Optional.empty(), 
+				Optional.empty()
+		);
 	}
 	
 	protected BaseSlashCommand(
 			SlashCommandData slashCommandData,
-			SubCommandsHolder holder
+			SubcommandsHolder subCommandsHolder,
+			SubcommandGroupsHolder subcommandGroupsHolder
 	) {
-		this(slashCommandData, Optional.of(holder), Optional.empty());
+		this(
+				slashCommandData, 
+				Optional.of(subCommandsHolder), 
+				Optional.of(subcommandGroupsHolder),  
+				Optional.empty()
+		);
 	}
 	
 	protected BaseSlashCommand(
 			SlashCommandData slashCommandData,
 			OptionsHolder holder
 	) {
-		this(slashCommandData, Optional.empty(), Optional.of(holder));
+		this(
+				slashCommandData, 
+				Optional.empty(), 
+				Optional.empty(), 
+				Optional.of(holder)
+		);
 	}
 	
 	public void execute(SlashCommandInteraction interaction) {}
@@ -62,19 +81,24 @@ public abstract class BaseSlashCommand {
 	
 	private BaseSlashCommand(
 			SlashCommandData slashCommandData,
-			Optional<SubCommandsHolder> subCommandsHolder,
+			Optional<SubcommandsHolder> subCommandsHolder,
+			Optional<SubcommandGroupsHolder> subcommandGroupsHolder,
 			Optional<OptionsHolder> optionHolder
 	) {
 		this.slashCommandData = slashCommandData;
 		this.subCommands = subCommandsHolder
-				.orElse(new SubCommandsHolder(List.of()))
+				.orElse(new SubcommandsHolder(List.of()))
 				.subCommands;
+		this.subCommandGroups = subcommandGroupsHolder
+				.orElse(new SubcommandGroupsHolder(List.of()))
+				.subCommandGroups;
 		this.options = optionHolder
 				.orElse(new OptionsHolder(List.of()))
 				.options;
 	}
 	
-	protected record SubCommandsHolder(List<BaseSubcommand> subCommands) {}
+	protected record SubcommandsHolder(List<BaseSubcommand> subCommands) {}
+	protected record SubcommandGroupsHolder(List<BaseSubcommandGroup> subCommandGroups) {}
 	protected record OptionsHolder(List<OptionData> options) {}
 	
 }

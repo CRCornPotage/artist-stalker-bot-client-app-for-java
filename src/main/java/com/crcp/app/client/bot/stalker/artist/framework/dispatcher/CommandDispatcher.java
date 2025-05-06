@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.crcp.app.client.bot.stalker.artist.framework.base.BaseSlashCommand;
 import com.crcp.app.client.bot.stalker.artist.framework.base.BaseSubcommand;
+import com.crcp.app.client.bot.stalker.artist.framework.base.BaseSubcommandGroup;
 
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 
@@ -56,6 +57,42 @@ public class CommandDispatcher {
 				.findFirst();
 	}
 	
+	private Optional<BaseSubcommandGroup> findSubCommandGroup(
+			SlashCommandInteraction interaction,
+			BaseSlashCommand slashCommand
+	) {
+		return slashCommand.getSubCommandGroups()
+				.stream()
+				.filter(
+						subCommandGroup -> Objects
+								.equals(
+										subCommandGroup
+												.getSubcommandGroupData()
+												.getName(), 
+										interaction.getSubcommandGroup()
+								)
+				)
+				.findFirst();
+	}
+	
+	private Optional<BaseSubcommand> findSubCommand(
+			SlashCommandInteraction interaction, 
+			BaseSubcommandGroup subcommandGroup
+	) {
+		return subcommandGroup.getSubCommands()
+				.stream()
+				.filter(
+						subCommand -> Objects
+								.equals(
+										subCommand
+												.getSubcommandData()
+												.getName(), 
+										interaction.getSubcommandName()
+								)
+				)
+				.findFirst();
+	}
+	
 	private Optional<BaseSubcommand> findSubCommand(
 			SlashCommandInteraction interaction, 
 			BaseSlashCommand slashCommand
@@ -78,10 +115,13 @@ public class CommandDispatcher {
 			SlashCommandInteraction interaction, 
 			BaseSlashCommand slashCommand
 	) {
-		final var maybeTargetSubCommand = this.findSubCommand(
-				interaction, 
+		final var maybeTargetSubCommandGroup = this.findSubCommandGroup(
+				interaction,
 				slashCommand
 		);
+		final var maybeTargetSubCommand = maybeTargetSubCommandGroup.isPresent()
+				? this.findSubCommand(interaction, maybeTargetSubCommandGroup.get())
+				: this.findSubCommand(interaction, slashCommand);
 		if (maybeTargetSubCommand.isPresent()) {
 			// 処理開始ログ(Info
 			maybeTargetSubCommand.get().execute(interaction);
